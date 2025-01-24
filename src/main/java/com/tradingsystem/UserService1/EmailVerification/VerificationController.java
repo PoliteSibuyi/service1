@@ -1,5 +1,6 @@
 package com.tradingsystem.UserService1.EmailVerification;
 
+import com.tradingsystem.UserService1.SignUp.SignupService.TraderService;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,25 +13,24 @@ import org.springframework.web.bind.annotation.RestController;
     @RequestMapping("/api/v1/verification")
     public class VerificationController {
 
-        @Autowired
-        private EmailVerififcationService service;
+       private TraderService traderService;
+        private EmailVerififcationService emailService;
 
-        @PostMapping("/send-otp")
+    @Autowired
+    public VerificationController(TraderService traderService, EmailVerififcationService emailService) {
+        this.traderService = traderService;
+        this.emailService = emailService;
+    }
+
+
+    @PostMapping("/send-otp")
         public ResponseEntity<String> sendOtp(@RequestParam String email) {
             try {
-                service.sentOtp(email);
+                emailService.sentOtp(email);
                 return ResponseEntity.ok("OTP sent to " + email);
             } catch (MessagingException e) {
                 return ResponseEntity.status(500).body("Failed to send OTP: " + e.getMessage());
             }
         }
-    @PostMapping("/validate-otp")
-    public ResponseEntity<String> validateOtp(@RequestParam String email, @RequestParam String otp) {
-        boolean isValid = service.vaidateOtp(email, otp);
-        if (isValid) {
-            return ResponseEntity.ok("Email verified successfully!");
-        } else {
-            return ResponseEntity.status(400).body("Invalid or expired OTP.");
-        }
-    }
+
 }

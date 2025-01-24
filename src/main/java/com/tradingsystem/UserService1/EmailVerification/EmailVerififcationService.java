@@ -88,23 +88,29 @@ public class EmailVerififcationService {
 
     }
     //MAPPING THE DTO TO THE ENTITY
-    public EmailVerificationDTO mapToDTO(EmailVerification emailVerification){
-        EmailVerificationDTO emailVerificationDTO=new EmailVerificationDTO();
-        emailVerificationDTO.setId(emailVerification.getId());
-        emailVerificationDTO.setEmail(emailVerification.getEmail());
-        emailVerificationDTO.setOtp(emailVerification.getOtp());
-        emailVerificationDTO.setExpirationTime(emailVerification.getExpirationTime());
-        return  emailVerificationDTO;
-
-    }
+//    public EmailVerificationDTO mapToDTO(EmailVerification emailVerification){
+//        EmailVerificationDTO emailVerificationDTO=new EmailVerificationDTO();
+//        emailVerificationDTO.setId(emailVerification.getId());
+//        emailVerificationDTO.setEmail(emailVerification.getEmail());
+//        emailVerificationDTO.setOtp(emailVerification.getOtp());
+//        emailVerificationDTO.setExpirationTime(emailVerification.getExpirationTime());
+//        return  emailVerificationDTO;
+//
+//    }
     //MAPPING THE ENTITY TO THE DTO
-    public  EmailVerification mapToEntity(EmailVerificationDTO emailVerificationDTO){
-        EmailVerification emailVerification=new EmailVerification();
-        emailVerification.setId(emailVerificationDTO.getId());
-        emailVerification.setOtp(emailVerificationDTO.getOtp());
-        emailVerification.setEmail(emailVerificationDTO.getEmail());
-        emailVerification.setExpirationTime(emailVerificationDTO.getExpirationTime());
-        return emailVerification;
+//    public  EmailVerification mapToEntity(EmailVerificationDTO emailVerificationDTO){
+//        EmailVerification emailVerification=new EmailVerification();
+//        emailVerification.setId(emailVerificationDTO.getId());
+//        emailVerification.setOtp(emailVerificationDTO.getOtp());
+//        emailVerification.setEmail(emailVerificationDTO.getEmail());
+//        emailVerification.setExpirationTime(emailVerificationDTO.getExpirationTime());
+//        return emailVerification;
 
-    }
+//    }
+    // Check if email is verified
+        public boolean isEmailVerified(String email) {
+            Optional<EmailVerification> optional = repository.findByEmail(email);
+            return optional.isEmpty(); // Email is verified if it no longer exists in the repository
+        }
+
 }
