@@ -5,14 +5,17 @@ import com.tradingsystem.UserService1.Model.Trader;
 import com.tradingsystem.UserService1.Repository.TraderRepository;
 import com.tradingsystem.UserService1.TraderDTO.TraderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LoginService implements LoginServiceRepository {
 private TraderRepository traderRepository;
+    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public LoginService(TraderRepository traderRepository) {
+    public LoginService(TraderRepository traderRepository,PasswordEncoder passwordEncoder) {
         this.traderRepository = traderRepository;
+        this.passwordEncoder=passwordEncoder;
     }
     @Override
     public TraderDTO getTraderByEmail(String email) {
@@ -43,4 +46,9 @@ private TraderRepository traderRepository;
         return  trader;
 
     }
+    // Method to verify the password
+    public boolean verifyPassword(String rawPassword, String encodedPassword) {
+        return passwordEncoder.matches(rawPassword, encodedPassword);
+    }
+
 }
