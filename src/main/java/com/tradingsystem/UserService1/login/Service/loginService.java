@@ -10,40 +10,41 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LoginService implements LoginServiceRepository {
-private TraderRepository traderRepository;
+    private final TraderRepository traderRepository;
     private final PasswordEncoder passwordEncoder;
     @Autowired
-    public LoginService(TraderRepository traderRepository,PasswordEncoder passwordEncoder) {
+    public LoginService(TraderRepository traderRepository, PasswordEncoder passwordEncoder) {
         this.traderRepository = traderRepository;
-        this.passwordEncoder=passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
+    //verify email from database
     @Override
     public TraderDTO getTraderByEmail(String email) {
-        Trader trader=traderRepository.findByEmail(email).orElseThrow(()-> new TraderNotFoundException("User is not found"));
+        Trader trader = traderRepository.findByEmail(email).orElseThrow(() -> new TraderNotFoundException("User is not found"));
         return mapToDTO(trader);
     }
     //MAPPING THE DTO TO THE ENTITY
-    public TraderDTO mapToDTO(Trader trader){
-        TraderDTO traderDTO=new TraderDTO();
+    public TraderDTO mapToDTO(Trader trader) {
+        TraderDTO traderDTO = new TraderDTO();
         traderDTO.setId(trader.getId());
         traderDTO.setEmail(trader.getEmail());
         traderDTO.setFirstName(trader.getFirstName());
         traderDTO.setLastName(trader.getFirstName());
         traderDTO.setPassword(trader.getPassword());
         traderDTO.setDateCreated(trader.getDateCreated());
-        return  traderDTO;
+        return traderDTO;
 
     }
     //MAPPING THE ENTITY TO THE DTO
-    public Trader mapToDTO(TraderDTO traderDTO){
-        Trader trader=new Trader();
+    public Trader mapToDTO(TraderDTO traderDTO) {
+        Trader trader = new Trader();
         trader.setId(traderDTO.getId());
         trader.setEmail(traderDTO.getEmail());
         trader.setFirstName(traderDTO.getFirstName());
         trader.setLastName(traderDTO.getFirstName());
         trader.setPassword(traderDTO.getPassword());
         trader.setDateCreated(traderDTO.getDateCreated());
-        return  trader;
+        return trader;
 
     }
     // Method to verify the password

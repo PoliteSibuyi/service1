@@ -22,9 +22,11 @@ public class TraderDTO {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
+
     public TraderDTO() {
-        this.dateCreated=new Date();
+        this.dateCreated = new Date();
     }
+
     public TraderDTO(Long id, String firstName, String lastName, String email, String password) {
         this.id = id;
         this.firstName = firstName;

@@ -1,6 +1,7 @@
 package com.tradingsystem.UserService1.EmailVerification;
 
 import java.util.Random;
+//generating the Our OTP Using Randomiser
 
 public class OTPUtil {
     public static String generateOTP(int length){

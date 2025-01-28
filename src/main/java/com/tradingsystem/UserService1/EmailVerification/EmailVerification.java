@@ -4,7 +4,7 @@ package com.tradingsystem.UserService1.EmailVerification;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-
+//stores email and otp temporarily in database
 @Entity
 public class EmailVerification {
     @Id
