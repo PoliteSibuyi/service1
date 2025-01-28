@@ -24,6 +24,7 @@ public class TraderService implements SignUpServiceInterface {
         trader.setFirstName(traderDTO.getFirstName());
         trader.setLastName(traderDTO.getLastName());
         //trader.setPassword(traderDTO.getPassword());
+        //hashing password using encode method from spring security
         trader.setPassword(passwordEncoder.encode(traderDTO.getPassword()));
         trader.setDateCreated(traderDTO.getDateCreated());
         traderRepository.save(trader);
